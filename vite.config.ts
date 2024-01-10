@@ -1,7 +1,6 @@
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
-import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig(({ mode }) => ({
   build: {
@@ -40,9 +39,5 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     dts(),
-    visualizer({
-      open: false, // This opens the visualization in your browser after the build
-      filename: 'bundle-analysis.html', // The output file for the report
-    }),
   ],
 }));
