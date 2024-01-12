@@ -1,7 +1,7 @@
 import {
   SuiSignMessageOutput,
   SuiSignPersonalMessageOutput,
-} from "@mysten/wallet-standard";
+} from "@razorlabs/wallet-standard";
 import { verifyPersonalMessage } from "@mysten/sui.js/verify";
 import { stringBytesToUint8Array } from "./stringBytesToUint8Array";
 import { Uint8arrayTool } from "./binary";

@@ -19,7 +19,7 @@ import {
   SuiSignPersonalMessageMethod,
   SuiSignPersonalMessageInput,
   SuiSignPersonalMessageOutput,
-} from '@mysten/wallet-standard';
+} from '@razorlabs/wallet-standard';
 import { IWalletAdapter } from './interfaces';
 import {
   ErrorCode,

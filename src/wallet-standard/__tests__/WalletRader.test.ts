@@ -1,4 +1,4 @@
-import { Wallet, getWallets } from '@mysten/wallet-standard';
+import { Wallet, getWallets } from '@razorlabs/wallet-standard';
 import { WalletRadar } from '../WalletRadar';
 import { FeatureName } from '../constants';
 
@@ -58,7 +58,7 @@ describe('test radar detection', () => {
         icon: 'data:image/png;base64,',
         version: '1.0.0',
         accounts: [],
-        chains: ['sui:devnet'],
+        chains: ['m2:devnet'],
         features: {
           [FeatureName.STANDARD__CONNECT]: () => {},
           [FeatureName.STANDARD__EVENTS]: () => {},

@@ -1,10 +1,10 @@
 import { IWalletAdapter } from './interfaces/IWalletAdapter';
 import {
   StandardEventsListeners,
-  SuiChain,
+  M2Chain,
   Wallet,
   WalletAccount,
-} from '@mysten/wallet-standard';
+} from '@razorlabs/wallet-standard';
 
 export type WalletRadarSubscriptionInput = (wallets: IWalletAdapter[]) => void;
 export type WalletRadarSubscriptionOutput = () => void;
@@ -20,8 +20,6 @@ export type WalletEventListeners = StandardEventsListeners & {
   featureChange: (params: FeatureChangeParams) => void;
   accountChange: (params: AccountChangeParams) => void;
 };
-
-type M2Chain = 'm2:devnet' | 'm2:testnet';
 
 export interface ChainChangeParams {
   chain: M2Chain;
