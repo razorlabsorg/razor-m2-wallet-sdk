@@ -22,7 +22,7 @@ beforeEach(() => {
   listeners = [];
 });
 
-jest.mock('@mysten/wallet-standard', () => {
+jest.mock('@razorlabs/wallet-standard', () => {
   return {
     getWallets: jest.fn().mockReturnValue({
       get: () => initialWallets,

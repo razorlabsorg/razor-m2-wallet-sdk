@@ -7,7 +7,7 @@ import {
   getWallets,
   Wallet,
   Wallets as WalletStandardSdk,
-} from '@mysten/wallet-standard';
+} from '@razorlabs/wallet-standard';
 import { isStandardWalletAdapterCompatibleWallet } from './utils';
 import { WalletAdapter } from './WalletAdapter';
 

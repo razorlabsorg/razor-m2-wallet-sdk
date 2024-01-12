@@ -1,4 +1,4 @@
-import { Wallet } from '@mysten/wallet-standard';
+import { Wallet } from '@razorlabs/wallet-standard';
 
 export function isStandardWalletAdapterCompatibleWallet(wallet: Wallet) {
   return (
