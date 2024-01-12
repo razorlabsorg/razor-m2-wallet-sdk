@@ -1,9 +1,9 @@
 import { Chain } from './types';
 
 export enum M2ChainId {
-  DEV_NET = 'm2:devnet',
-  TEST_NET = 'm2:testnet',
-  MAIN_NET = 'm2:mainnet',
+  DEV_NET = 'movement:m2:devnet',
+  TEST_NET = 'movement:m2:testnet',
+  MAIN_NET = 'movement:m2:mainnet',
 }
 
 export const M2DevnetChain: Chain = {
@@ -13,7 +13,7 @@ export const M2DevnetChain: Chain = {
 };
 
 export const UnknownChain: Chain = {
-  id: 'unknown:unknown',
+  id: 'movement:unknown:unknown',
   name: 'Unknown Network',
   rpcUrl: '',
 };
