@@ -1,6 +1,6 @@
 import { AccountObjectManager } from '../AccountObjectManager';
 import type { PaginatedCoins } from '@mysten/sui.js/client';
-import { AccountCoinManager } from '../AccountCoinManager';
+import { SuiAccountCoinManager } from '../SuiAccountCoinManager';
 
 const mockedGetCoinsResponse: PaginatedCoins = {
   data: [
@@ -35,7 +35,7 @@ const getMockedSuiClient = jest.fn().mockImplementation(() => {
 
 describe('test getCoins', () => {
   test('given mocked sdk, when getCoins, then return coins of that type', async () => {
-    const objManager = new AccountCoinManager(
+    const objManager = new SuiAccountCoinManager(
       getMockedSuiClient(),
       '0x2::sui::SUI'
     );
@@ -49,7 +49,7 @@ describe('test getCoins', () => {
 
 describe('test getBalance', () => {
   test('given mocked sdk, when getBalance, then return balance of that type of coin', async () => {
-    const objManager = new AccountCoinManager(
+    const objManager = new SuiAccountCoinManager(
       getMockedSuiClient(),
       '0x2::sui::SUI'
     );

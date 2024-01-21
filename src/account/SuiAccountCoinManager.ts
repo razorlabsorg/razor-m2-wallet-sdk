@@ -1,11 +1,11 @@
-import { IAccountCoinManager } from './interfaces';
-import { CoinObject } from '../common';
+import { ISuiAccountCoinManager } from './interfaces';
+import { SuiCoinObject } from '../common';
 import { SuiClient, PaginatedCoins } from '@mysten/sui.js/client';
 import { AccountObjectManager } from './AccountObjectManager';
 
-export class AccountCoinManager
+export class SuiAccountCoinManager
   extends AccountObjectManager
-  implements IAccountCoinManager
+  implements ISuiAccountCoinManager
 {
   private coinType: string;
 
@@ -17,10 +17,10 @@ export class AccountCoinManager
   /**
    * Get the coin object of one specific token type
    */
-  async getOwnedCoins(address: string): Promise<CoinObject[]> {
+  async getOwnedCoins(address: string): Promise<SuiCoinObject[]> {
     let hasNextPage = true;
     let nextCursor = null;
-    let coins: CoinObject[] = [];
+    let coins: SuiCoinObject[] = [];
     while (hasNextPage) {
       const paginatedCoins: PaginatedCoins = await this.client.getCoins({
         owner: address,
@@ -29,7 +29,11 @@ export class AccountCoinManager
       });
       paginatedCoins.data.forEach((coin) => {
         coins.push(
-          new CoinObject(coin.coinObjectId, coin.coinType, BigInt(coin.balance))
+          new SuiCoinObject(
+            coin.coinObjectId,
+            coin.coinType,
+            BigInt(coin.balance)
+          )
         );
       });
       hasNextPage = paginatedCoins.hasNextPage;

@@ -1,27 +1,18 @@
-import { CoinUtil } from '../lib';
-
-export type SuiCoinObjectDto = {
-  objectId: string;
+export type AptosCoinResourceDto = {
   symbol: string;
   balance: bigint;
   typeArg: string;
 };
 
-export class SuiCoinObject {
-  private _objectId: string;
+export class AptosCoinResource {
   private _typeArg: string;
   private _balance: bigint;
   private _symbol: string;
 
-  constructor(objectId: string, typeArg: string, balance: bigint) {
-    this._objectId = objectId;
+  constructor(typeArg: string, balance: bigint) {
     this._balance = balance;
     this._typeArg = typeArg;
-    this._symbol = CoinUtil.getCoinSymbol(typeArg);
-  }
-
-  get objectId() {
-    return this._objectId;
+    this._symbol = typeArg.substring(typeArg.lastIndexOf(':') + 1);
   }
 
   get typeArg() {
@@ -36,13 +27,12 @@ export class SuiCoinObject {
     return this._symbol;
   }
 
-  static fromDto(obj: SuiCoinObjectDto) {
-    return new SuiCoinObject(obj.objectId, obj.typeArg, obj.balance);
+  static fromDto(res: AptosCoinResourceDto) {
+    return new AptosCoinResource(res.typeArg, res.balance);
   }
 
-  toDto(): SuiCoinObjectDto {
+  toDto(): AptosCoinResourceDto {
     return {
-      objectId: this._objectId,
       balance: this._balance,
       typeArg: this._typeArg,
       symbol: this._symbol,

@@ -19,6 +19,13 @@ import {
   SuiSignPersonalMessageMethod,
   SuiSignPersonalMessageInput,
   SuiSignPersonalMessageOutput,
+  AptosSignAndSubmitTransactionInput,
+  AptosSignAndSubmitTransactionOutput,
+  AptosSignAndSubmitTransactionMethod,
+  UserResponse,
+  AptosSignMessageInput,
+  AptosSignMessageOutput,
+  AptosSignMessageMethod,
 } from '@razorlabs/wallet-standard';
 import { IWalletAdapter } from './interfaces';
 import {
@@ -29,6 +36,11 @@ import {
 } from '../error-handling';
 import { FeatureName } from './constants';
 import { has } from '../utils';
+import {
+  AptosSignTransactionInput,
+  AptosSignTransactionMethod,
+  AptosSignTransactionOutput,
+} from '@razorlabs/wallet-standard/dist/features/aptosSignTransaction';
 
 /**
  * Wrap the adapter that supports wallet-standard
@@ -129,6 +141,22 @@ export class WalletAdapter implements IWalletAdapter {
     }
   }
 
+  async signAndSubmitTransaction(
+    input: AptosSignAndSubmitTransactionInput
+  ): Promise<UserResponse<AptosSignAndSubmitTransactionOutput>> {
+    const feature = this.getFeature<{
+      signAndSubmitTransaction: AptosSignAndSubmitTransactionMethod;
+    }>(FeatureName.APTOS__SIGN_AND_SUBMIT_TRANSACTION);
+    try {
+      return await feature.signAndSubmitTransaction(input);
+    } catch (e) {
+      throw new WalletError(
+        (e as any).message,
+        ErrorCode.WALLET__SIGN_TX_ERROR
+      );
+    }
+  }
+
   signTransactionBlock(
     input: SuiSignTransactionBlockInput
   ): Promise<SuiSignTransactionBlockOutput> {
@@ -145,9 +173,27 @@ export class WalletAdapter implements IWalletAdapter {
     }
   }
 
-  async signMessage(input: SuiSignMessageInput): Promise<SuiSignMessageOutput> {
-    const feature = this.getFeature<{ signMessage: SuiSignMessageMethod }>(
-      FeatureName.SUI__SIGN_MESSAGE
+  signTransaction(
+    input: AptosSignTransactionInput
+  ): Promise<UserResponse<AptosSignTransactionOutput>> {
+    const feature = this.getFeature<{
+      signTransaction: AptosSignTransactionMethod;
+    }>(FeatureName.APTOS__SIGN_TRANSACTION);
+    try {
+      return feature.signTransaction(input);
+    } catch (e) {
+      throw new WalletError(
+        (e as any).message,
+        ErrorCode.WALLET__SIGN_TX_ERROR
+      );
+    }
+  }
+
+  async signMessage(
+    input: AptosSignMessageInput
+  ): Promise<UserResponse<AptosSignMessageOutput>> {
+    const feature = this.getFeature<{ signMessage: AptosSignMessageMethod }>(
+      FeatureName.APTOS__SIGN_MESSAGE
     );
     try {
       return await feature.signMessage(input);

@@ -16,12 +16,9 @@ export function handleConnectionError(
   switch (wallet) {
     case PresetWallet.SUI_WALLET:
     case PresetWallet.ETHOS_WALLET:
+    case PresetWallet.MARTIAN_WALLET:
+    case PresetWallet.PETRA_WALLET:
     case PresetWallet.RAZOR_WALLET:
-      if (message.includes('User rejects approval')) {
-        code = ErrorCode.WALLET__CONNECT_ERROR__USER_REJECTED;
-      }
-      break;
-    case PresetWallet.SUI_WALLET:
       if (message.includes('User rejects approval')) {
         code = ErrorCode.WALLET__CONNECT_ERROR__USER_REJECTED;
       }

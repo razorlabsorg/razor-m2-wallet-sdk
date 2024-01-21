@@ -9,6 +9,8 @@ export enum PresetWallet {
   RAZOR_WALLET = 'Razor Wallet',
   SUI_WALLET = 'Sui Wallet',
   ETHOS_WALLET = 'Ethos Wallet',
+  PETRA_WALLET = 'Petra Wallet',
+  MARTIAN_WALLET = 'Martian Wallet',
 }
 
 export const RazorWallet = defineWallet({
@@ -41,5 +43,26 @@ export const EthosWallet = defineWallet({
   downloadUrl: {
     browserExtension:
       'https://chrome.google.com/webstore/detail/ethos-sui-wallet/mcbigmjiafegjnnogedioegffbooigli',
+  },
+});
+
+export const MartianWallet = defineWallet({
+  name: PresetWallet.MARTIAN_WALLET,
+  label: 'Martian Wallet',
+  iconUrl: 'https://cdn.martianwallet.xyz/assets/icon.png',
+  downloadUrl: {
+    browserExtension:
+      'https://chrome.google.com/webstore/detail/martian-wallet-aptos-sui/efbglgofoippbgcjepnhiblaibcnclgk',
+  },
+});
+
+export const PetraWallet = defineWallet({
+  name: PresetWallet.PETRA_WALLET,
+  label: 'Petra Wallet',
+  iconUrl:
+    'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDI1NiAyNTYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTI4IiBjeT0iMTI4IiByPSIxMjgiIGZpbGw9IiNGRjYyNjMiPjwvY2lyY2xlPjxwYXRoIGQ9Ik0xMjUgNTRWMjAxQzkyLjYgMjAxIDc4LjE2NjcgMTcxLjMzMyA3NSAxNTYuNVY3MS41TDEyNSA1NFoiIGZpbGw9IndoaXRlIj48L3BhdGg+PHBhdGggZD0iTTEzMi41IDEzOS41VjU0TDE4MSA3MS41Vjk4LjVDMTczLjggMTM0LjEgMTQ1LjY2NyAxNDAuNjY3IDEzMi41IDEzOS41WiIgZmlsbD0id2hpdGUiPjwvcGF0aD48L3N2Zz4=',
+  downloadUrl: {
+    browserExtension:
+      'https://chromewebstore.google.com/detail/petra-aptos-wallet/ejjladinnckdgjemekebdpeokbikhfci',
   },
 });

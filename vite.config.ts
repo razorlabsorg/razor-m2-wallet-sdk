@@ -37,7 +37,5 @@ export default defineConfig(({ mode }) => ({
     target: 'es2020',
     pure: mode === 'production' ? ['console.log', 'debugger'] : [],
   },
-  plugins: [
-    dts(),
-  ],
+  plugins: [dts()],
 }));

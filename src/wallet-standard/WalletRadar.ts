@@ -8,7 +8,10 @@ import {
   Wallet,
   Wallets as WalletStandardSdk,
 } from '@razorlabs/wallet-standard';
-import { isStandardWalletAdapterCompatibleWallet } from './utils';
+import {
+  isStandardAptosWalletAdapterCompatibleWallet,
+  isStandardSuiWalletAdapterCompatibleWallet,
+} from './utils';
 import { WalletAdapter } from './WalletAdapter';
 
 export class WalletRadar implements IWalletRadar {
@@ -67,7 +70,11 @@ export class WalletRadar implements IWalletRadar {
   }
 
   private setDetectedWalletAdapters(rawAdapter: Wallet) {
-    if (!isStandardWalletAdapterCompatibleWallet(rawAdapter)) return;
+    if (
+      !isStandardSuiWalletAdapterCompatibleWallet(rawAdapter) &&
+      !isStandardAptosWalletAdapterCompatibleWallet(rawAdapter)
+    )
+      return;
     if (this.walletAdapterMap.has(rawAdapter.name)) return;
 
     this.walletAdapterMap.set(rawAdapter.name, new WalletAdapter(rawAdapter));

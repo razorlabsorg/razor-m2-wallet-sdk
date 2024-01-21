@@ -1,8 +1,8 @@
 import { SuiClient } from '@mysten/sui.js/client';
-import { CoinObject } from '../../common';
+import { SuiCoinObject } from '../../common';
 
-export interface IAccountCoinManager {
-  getOwnedCoins(address: string): Promise<CoinObject[]>;
+export interface ISuiAccountCoinManager {
+  getOwnedCoins(address: string): Promise<SuiCoinObject[]>;
   getBalance(address: string): Promise<bigint>;
   getSuiClient(): SuiClient;
   setSuiClient(suiClient: SuiClient): void;

@@ -1,7 +1,7 @@
 import { IWalletAdapter } from './interfaces/IWalletAdapter';
 import {
   StandardEventsListeners,
-  M2Chain,
+  MovementChain,
   Wallet,
   WalletAccount,
 } from '@razorlabs/wallet-standard';
@@ -22,7 +22,7 @@ export type WalletEventListeners = StandardEventsListeners & {
 };
 
 export interface ChainChangeParams {
-  chain: M2Chain;
+  chain: MovementChain;
 }
 
 export interface AccountChangeParams {

@@ -1,2 +1,3 @@
 export * from './IAccountObjectManager';
-export * from './IAccountCoinManager';
+export * from './ISuiAccountCoinManager';
+export * from './IAccountResourceManager';
