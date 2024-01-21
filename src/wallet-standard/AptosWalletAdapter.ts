@@ -7,18 +7,6 @@ import {
   StandardDisconnectMethod,
   StandardEventsOnMethod,
   Wallet,
-  SuiSignTransactionBlockInput,
-  SuiSignAndExecuteTransactionBlockInput,
-  SuiSignAndExecuteTransactionBlockOutput,
-  SuiSignAndExecuteTransactionBlockMethod,
-  SuiSignTransactionBlockMethod,
-  SuiSignTransactionBlockOutput,
-  SuiSignMessageInput,
-  SuiSignMessageOutput,
-  SuiSignMessageMethod,
-  SuiSignPersonalMessageMethod,
-  SuiSignPersonalMessageInput,
-  SuiSignPersonalMessageOutput,
   AptosSignAndSubmitTransactionInput,
   AptosSignAndSubmitTransactionOutput,
   AptosSignAndSubmitTransactionMethod,
@@ -27,7 +15,7 @@ import {
   AptosSignMessageOutput,
   AptosSignMessageMethod,
 } from '@razorlabs/wallet-standard';
-import { IWalletAdapter } from './interfaces';
+import { IAptosWalletAdapter } from './interfaces';
 import {
   ErrorCode,
   handleConnectionError,
@@ -46,7 +34,7 @@ import {
  * Wrap the adapter that supports wallet-standard
  * provider universal interfaces to component usage
  */
-export class WalletAdapter implements IWalletAdapter {
+export class AptosWalletAdapter implements IAptosWalletAdapter {
   private standardWalletAdapter: Wallet;
 
   constructor(standardWalletAdapter: Wallet) {
@@ -125,22 +113,6 @@ export class WalletAdapter implements IWalletAdapter {
     }
   }
 
-  async signAndExecuteTransactionBlock(
-    input: SuiSignAndExecuteTransactionBlockInput
-  ): Promise<SuiSignAndExecuteTransactionBlockOutput> {
-    const feature = this.getFeature<{
-      signAndExecuteTransactionBlock: SuiSignAndExecuteTransactionBlockMethod;
-    }>(FeatureName.SUI__SIGN_AND_EXECUTE_TRANSACTION_BLOCK);
-    try {
-      return await feature.signAndExecuteTransactionBlock(input);
-    } catch (e) {
-      throw new WalletError(
-        (e as any).message,
-        ErrorCode.WALLET__SIGN_TX_ERROR
-      );
-    }
-  }
-
   async signAndSubmitTransaction(
     input: AptosSignAndSubmitTransactionInput
   ): Promise<UserResponse<AptosSignAndSubmitTransactionOutput>> {
@@ -149,22 +121,6 @@ export class WalletAdapter implements IWalletAdapter {
     }>(FeatureName.APTOS__SIGN_AND_SUBMIT_TRANSACTION);
     try {
       return await feature.signAndSubmitTransaction(input);
-    } catch (e) {
-      throw new WalletError(
-        (e as any).message,
-        ErrorCode.WALLET__SIGN_TX_ERROR
-      );
-    }
-  }
-
-  signTransactionBlock(
-    input: SuiSignTransactionBlockInput
-  ): Promise<SuiSignTransactionBlockOutput> {
-    const feature = this.getFeature<{
-      signTransactionBlock: SuiSignTransactionBlockMethod;
-    }>(FeatureName.SUI__SIGN_TRANSACTION_BLOCK);
-    try {
-      return feature.signTransactionBlock(input);
     } catch (e) {
       throw new WalletError(
         (e as any).message,
@@ -201,22 +157,6 @@ export class WalletAdapter implements IWalletAdapter {
       throw new WalletError(
         (e as any).message,
         ErrorCode.WALLET__SIGN_MSG_ERROR
-      );
-    }
-  }
-
-  signPersonalMessage(
-    input: SuiSignPersonalMessageInput
-  ): Promise<SuiSignPersonalMessageOutput> {
-    const feature = this.getFeature<{
-      signPersonalMessage: SuiSignPersonalMessageMethod;
-    }>(FeatureName.SUI__SIGN_PERSONAL_MESSAGE);
-    try {
-      return feature.signPersonalMessage(input);
-    } catch (e) {
-      throw new WalletError(
-        (e as any).message,
-        ErrorCode.WALLET__SIGN_PERSONAL_MSG_ERROR
       );
     }
   }

@@ -1,4 +1,7 @@
-import { IWalletAdapter } from './interfaces/IWalletAdapter';
+import {
+  IAptosWalletAdapter,
+  ISuiWalletAdapter,
+} from './interfaces/IWalletAdapter';
 import {
   StandardEventsListeners,
   MovementChain,
@@ -6,7 +9,9 @@ import {
   WalletAccount,
 } from '@razorlabs/wallet-standard';
 
-export type WalletRadarSubscriptionInput = (wallets: IWalletAdapter[]) => void;
+export type WalletRadarSubscriptionInput = (
+  wallets: ISuiWalletAdapter[] | IAptosWalletAdapter[]
+) => void;
 export type WalletRadarSubscriptionOutput = () => void;
 
 export type WalletEvent =

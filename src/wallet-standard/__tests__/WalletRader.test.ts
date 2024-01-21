@@ -40,7 +40,7 @@ describe('test radar detection', () => {
   test('given mocked sdk, when radar is activated, then return detected wallet adapters', () => {
     const walletRadar = new WalletRadar();
     walletRadar.activate();
-    const detectedAdapters = walletRadar.getDetectedWalletAdapters();
+    const detectedAdapters = walletRadar.getDetectedSuiWalletAdapters();
     initialWallets.forEach((wallet) => {
       expect(
         detectedAdapters.find((adapter) => adapter.name === wallet.name)
@@ -66,13 +66,13 @@ describe('test radar detection', () => {
         },
       },
     ];
-    let detectedAdapters = walletRadar.getDetectedWalletAdapters();
+    let detectedAdapters = walletRadar.getDetectedSuiWalletAdapters();
     expect(detectedAdapters.length).toBe(1);
     // Given
     const sdk = getWallets();
     sdk.register(...newWallets);
     // Then
-    detectedAdapters = walletRadar.getDetectedWalletAdapters();
+    detectedAdapters = walletRadar.getDetectedSuiWalletAdapters();
     expect(detectedAdapters.length).toBe(2);
   });
 });

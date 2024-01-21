@@ -1,4 +1,8 @@
-import { IWalletAdapter, IWalletRadar } from './interfaces';
+import {
+  IAptosWalletAdapter,
+  ISuiWalletAdapter,
+  IWalletRadar,
+} from './interfaces';
 import {
   WalletRadarSubscriptionInput,
   WalletRadarSubscriptionOutput,
@@ -12,33 +16,39 @@ import {
   isStandardAptosWalletAdapterCompatibleWallet,
   isStandardSuiWalletAdapterCompatibleWallet,
 } from './utils';
-import { WalletAdapter } from './WalletAdapter';
+import { SuiWalletAdapter } from './SuiWalletAdapter';
+import { AptosWalletAdapter } from './AptosWalletAdapter';
 
 export class WalletRadar implements IWalletRadar {
   private walletStandardSdk: WalletStandardSdk | null;
-  private walletAdapterMap: Map<string, IWalletAdapter>;
+  private suiWalletAdapterMap: Map<string, ISuiWalletAdapter>;
+  private aptosWalletAdapterMap: Map<string, IAptosWalletAdapter>;
   private clearOnRegisterListener: null | (() => void);
   private subscriptions = new Set<WalletRadarSubscriptionInput>();
 
   constructor() {
     this.walletStandardSdk = null;
     this.clearOnRegisterListener = null;
-    this.walletAdapterMap = new Map();
+    this.suiWalletAdapterMap = new Map();
+    this.aptosWalletAdapterMap = new Map();
   }
 
   activate(): void {
     this.walletStandardSdk = getWallets();
     const initialWalletAdapters = this.walletStandardSdk.get();
     initialWalletAdapters.forEach((adapter) => {
-      this.setDetectedWalletAdapters(adapter);
+      this.setDetectedSuiWalletAdapters(adapter);
+      this.setDetectedAptosWalletAdapters(adapter);
     });
     this.clearOnRegisterListener = this.walletStandardSdk.on(
       'register',
       (...newAdapters) => {
         newAdapters.forEach((adapter) => {
-          this.setDetectedWalletAdapters(adapter);
+          this.setDetectedSuiWalletAdapters(adapter);
+          this.setDetectedAptosWalletAdapters(adapter);
         });
-        this.notifySubscribers();
+        this.notifySuiSubscribers();
+        this.notifyAptosSubscribers();
       }
     );
   }
@@ -47,11 +57,16 @@ export class WalletRadar implements IWalletRadar {
     if (this.clearOnRegisterListener) {
       this.clearOnRegisterListener();
     }
-    this.walletAdapterMap.clear();
+    this.suiWalletAdapterMap.clear();
+    this.aptosWalletAdapterMap.clear();
   }
 
-  getDetectedWalletAdapters(): IWalletAdapter[] {
-    return Array.from(this.walletAdapterMap.values());
+  getDetectedSuiWalletAdapters(): ISuiWalletAdapter[] {
+    return Array.from(this.suiWalletAdapterMap.values());
+  }
+
+  getDetectedAptosWalletAdapters(): IAptosWalletAdapter[] {
+    return Array.from(this.aptosWalletAdapterMap.values());
   }
 
   subscribe(
@@ -63,20 +78,35 @@ export class WalletRadar implements IWalletRadar {
     };
   }
 
-  private notifySubscribers() {
+  private notifySuiSubscribers() {
     this.subscriptions.forEach((subscription) => {
-      subscription(this.getDetectedWalletAdapters());
+      subscription(this.getDetectedSuiWalletAdapters());
     });
   }
 
-  private setDetectedWalletAdapters(rawAdapter: Wallet) {
-    if (
-      !isStandardSuiWalletAdapterCompatibleWallet(rawAdapter) &&
-      !isStandardAptosWalletAdapterCompatibleWallet(rawAdapter)
-    )
-      return;
-    if (this.walletAdapterMap.has(rawAdapter.name)) return;
+  private notifyAptosSubscribers() {
+    this.subscriptions.forEach((subscription) => {
+      subscription(this.getDetectedAptosWalletAdapters());
+    });
+  }
 
-    this.walletAdapterMap.set(rawAdapter.name, new WalletAdapter(rawAdapter));
+  private setDetectedSuiWalletAdapters(rawAdapter: Wallet) {
+    if (!isStandardSuiWalletAdapterCompatibleWallet(rawAdapter)) return;
+    if (this.suiWalletAdapterMap.has(rawAdapter.name)) return;
+
+    this.suiWalletAdapterMap.set(
+      rawAdapter.name,
+      new SuiWalletAdapter(rawAdapter)
+    );
+  }
+
+  private setDetectedAptosWalletAdapters(rawAdapter: Wallet) {
+    if (!isStandardAptosWalletAdapterCompatibleWallet(rawAdapter)) return;
+    if (this.aptosWalletAdapterMap.has(rawAdapter.name)) return;
+
+    this.aptosWalletAdapterMap.set(
+      rawAdapter.name,
+      new AptosWalletAdapter(rawAdapter)
+    );
   }
 }

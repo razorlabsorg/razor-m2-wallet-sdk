@@ -1,9 +1,12 @@
-import type { IWalletAdapter } from '../wallet-standard';
+import type {
+  IAptosWalletAdapter,
+  ISuiWalletAdapter,
+} from '../wallet-standard';
 
 export interface IWallet {
   name: string;
   label: string;
-  adapter: IWalletAdapter | undefined;
+  adapter: ISuiWalletAdapter | IAptosWalletAdapter | undefined;
   installed: boolean | undefined;
   iconUrl: string;
   downloadUrl: {

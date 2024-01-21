@@ -1,4 +1,4 @@
-import { IWalletAdapter } from './IWalletAdapter';
+import { IAptosWalletAdapter, ISuiWalletAdapter } from './IWalletAdapter';
 import {
   WalletRadarSubscriptionInput,
   WalletRadarSubscriptionOutput,
@@ -7,7 +7,8 @@ import {
 export interface IWalletRadar {
   activate: () => void;
   deactivate: () => void;
-  getDetectedWalletAdapters: () => IWalletAdapter[];
+  getDetectedSuiWalletAdapters: () => ISuiWalletAdapter[];
+  getDetectedAptosWalletAdapters: () => IAptosWalletAdapter[];
   /**
    * Subscribe to detected wallet updates
    * @param callback
