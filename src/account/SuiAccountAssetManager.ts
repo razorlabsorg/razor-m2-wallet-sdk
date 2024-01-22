@@ -3,7 +3,7 @@ import { SuiClient } from "@mysten/sui.js/client";
 import { SuiAccountCoinManager } from "./SuiAccountCoinManager";
 import { SUI_TYPE_ARG } from "@mysten/sui.js/utils";
 
-export class AccountAssetManager implements ISuiAccountAssetManager {
+export class SuiAccountAssetManager implements ISuiAccountAssetManager {
   private address: string;
   private chainRpcUrl: string;
   private suiClient: SuiClient;
