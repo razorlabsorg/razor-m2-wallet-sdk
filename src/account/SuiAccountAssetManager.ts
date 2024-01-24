@@ -1,7 +1,7 @@
-import { ISuiAccountAssetManager } from "./interfaces/ISuiAccountAssetManager";
-import { SuiClient } from "@mysten/sui.js/client";
-import { SuiAccountCoinManager } from "./SuiAccountCoinManager";
-import { SUI_TYPE_ARG } from "@mysten/sui.js/utils";
+import { ISuiAccountAssetManager } from './interfaces/ISuiAccountAssetManager';
+import { SuiClient } from '@mysten/sui.js/client';
+import { SuiAccountCoinManager } from './SuiAccountCoinManager';
+import { SUI_TYPE_ARG } from '@mysten/sui.js/utils';
 
 export class SuiAccountAssetManager implements ISuiAccountAssetManager {
   private address: string;

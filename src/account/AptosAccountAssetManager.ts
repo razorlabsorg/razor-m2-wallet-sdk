@@ -1,6 +1,6 @@
-import { IAptosAccountAssetManager } from "./interfaces/IAptosAccountAssetManager";
-import { AptosAccountCoinManager } from "./AptosAccountCoinManager";
-import { AptosClient } from "movement-sdk";
+import { IAptosAccountAssetManager } from './interfaces/IAptosAccountAssetManager';
+import { AptosAccountCoinManager } from './AptosAccountCoinManager';
+import { AptosClient } from 'movement-sdk';
 
 export class AptosAccountAssetManager implements IAptosAccountAssetManager {
   private address: string;
