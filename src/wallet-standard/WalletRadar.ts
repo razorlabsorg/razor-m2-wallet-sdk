@@ -11,7 +11,7 @@ import {
   getWallets,
   Wallet,
   Wallets as WalletStandardSdk,
-} from '@razorlabs/wallet-standard';
+} from '@razorlabs/sui-wallet-standard';
 import {
   isStandardAptosWalletAdapterCompatibleWallet,
   isStandardSuiWalletAdapterCompatibleWallet,

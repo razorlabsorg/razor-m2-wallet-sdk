@@ -5,24 +5,24 @@ import {
   StandardDisconnectMethod,
   StandardEventsFeature,
   StandardEventsOnMethod,
-  SuiSignAndExecuteTransactionBlockFeature,
-  SuiSignAndExecuteTransactionBlockMethod,
-  SuiSignTransactionBlockFeature,
-  SuiSignTransactionBlockMethod,
   WalletWithFeatures,
-  SuiSignPersonalMessageFeature,
-  SuiSignPersonalMessageMethod,
   AptosSignAndSubmitTransactionFeature,
   AptosSignMessageFeature,
   AptosSignAndSubmitTransactionMethod,
   AptosSignMessageMethod,
-  SuiSignMessageMethod,
-  SuiSignMessageFeature,
-} from '@razorlabs/wallet-standard';
-import {
   AptosSignTransactionFeature,
   AptosSignTransactionMethod,
-} from '@razorlabs/wallet-standard/dist/features/aptosSignTransaction';
+} from '@razorlabs/aptos-wallet-standard';
+import {
+  SuiSignMessageMethod,
+  SuiSignMessageFeature,
+  SuiSignAndExecuteTransactionBlockFeature,
+  SuiSignAndExecuteTransactionBlockMethod,
+  SuiSignTransactionBlockFeature,
+  SuiSignTransactionBlockMethod,
+  SuiSignPersonalMessageFeature,
+  SuiSignPersonalMessageMethod,
+} from '@razorlabs/sui-wallet-standard'
 
 export type ISuiWalletAdapter = WalletWithFeatures<
   StandardConnectFeature &

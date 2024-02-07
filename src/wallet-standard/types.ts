@@ -4,10 +4,12 @@ import {
 } from './interfaces/IWalletAdapter';
 import {
   StandardEventsListeners,
-  MovementChain,
+  M1Chain,
   Wallet,
   WalletAccount,
-} from '@razorlabs/wallet-standard';
+} from '@razorlabs/aptos-wallet-standard';
+
+import { M2Chain } from '@razorlabs/sui-wallet-standard'
 
 export type WalletRadarSubscriptionInput = (
   wallets: ISuiWalletAdapter[] | IAptosWalletAdapter[]
@@ -21,13 +23,17 @@ export type WalletEvent =
   | 'accountChange';
 
 export type WalletEventListeners = StandardEventsListeners & {
-  chainChange: (params: ChainChangeParams) => void;
+  chainChange: (params: M1ChainChangeParams | M2ChainChangeParams) => void;
   featureChange: (params: FeatureChangeParams) => void;
   accountChange: (params: AccountChangeParams) => void;
 };
 
-export interface ChainChangeParams {
-  chain: MovementChain;
+export interface M1ChainChangeParams {
+  chain: M1Chain;
+}
+
+export interface M2ChainChangeParams {
+  chain: M2Chain;
 }
 
 export interface AccountChangeParams {

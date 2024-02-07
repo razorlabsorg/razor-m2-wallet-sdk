@@ -19,7 +19,7 @@ import {
   SuiSignPersonalMessageMethod,
   SuiSignPersonalMessageInput,
   SuiSignPersonalMessageOutput,
-} from '@razorlabs/wallet-standard';
+} from '@razorlabs/sui-wallet-standard';
 import { ISuiWalletAdapter } from './interfaces';
 import {
   ErrorCode,

@@ -14,7 +14,10 @@ import {
   AptosSignMessageInput,
   AptosSignMessageOutput,
   AptosSignMessageMethod,
-} from '@razorlabs/wallet-standard';
+  AptosSignTransactionInput,
+  AptosSignTransactionMethod,
+  AptosSignTransactionOutput,
+} from '@razorlabs/aptos-wallet-standard';
 import { IAptosWalletAdapter } from './interfaces';
 import {
   ErrorCode,
@@ -24,11 +27,6 @@ import {
 } from '../error-handling';
 import { FeatureName } from './constants';
 import { has } from '../utils';
-import {
-  AptosSignTransactionInput,
-  AptosSignTransactionMethod,
-  AptosSignTransactionOutput,
-} from '@razorlabs/wallet-standard/dist/features/aptosSignTransaction';
 
 /**
  * Wrap the adapter that supports wallet-standard
@@ -115,7 +113,7 @@ export class AptosWalletAdapter implements IAptosWalletAdapter {
 
   async signAndSubmitTransaction(
     input: AptosSignAndSubmitTransactionInput
-  ): Promise<UserResponse<AptosSignAndSubmitTransactionOutput>> {
+  ): Promise<AptosSignAndSubmitTransactionOutput> {
     const feature = this.getFeature<{
       signAndSubmitTransaction: AptosSignAndSubmitTransactionMethod;
     }>(FeatureName.APTOS__SIGN_AND_SUBMIT_TRANSACTION);
@@ -131,7 +129,7 @@ export class AptosWalletAdapter implements IAptosWalletAdapter {
 
   signTransaction(
     input: AptosSignTransactionInput
-  ): Promise<UserResponse<AptosSignTransactionOutput>> {
+  ): AptosSignTransactionOutput {
     const feature = this.getFeature<{
       signTransaction: AptosSignTransactionMethod;
     }>(FeatureName.APTOS__SIGN_TRANSACTION);
@@ -147,7 +145,7 @@ export class AptosWalletAdapter implements IAptosWalletAdapter {
 
   async signMessage(
     input: AptosSignMessageInput
-  ): Promise<UserResponse<AptosSignMessageOutput>> {
+  ): Promise<AptosSignMessageOutput> {
     const feature = this.getFeature<{ signMessage: AptosSignMessageMethod }>(
       FeatureName.APTOS__SIGN_MESSAGE
     );
