@@ -16,23 +16,8 @@ export function handleConnectionError(
   switch (wallet) {
     case PresetWallet.SUI_WALLET:
     case PresetWallet.ETHOS_WALLET:
-    case PresetWallet.GLASS_WALLET:
-    case PresetWallet.MORPHIS_WALLET:
-      if (message.includes('Permission rejected')) {
-        code = ErrorCode.WALLET__CONNECT_ERROR__USER_REJECTED;
-      }
-      break;
-    case PresetWallet.SUIET_WALLET:
+    case PresetWallet.RAZOR_SUI_WALLET:
       if (message.includes('User rejects approval')) {
-        code = ErrorCode.WALLET__CONNECT_ERROR__USER_REJECTED;
-      }
-      break;
-    case PresetWallet.SPACECY_WALLET:
-      // NOTE: Spacecy wallet doesn't return any message
-      code = ErrorCode.WALLET__CONNECT_ERROR__USER_REJECTED;
-      break;
-    case PresetWallet.SURF_WALLET:
-      if (message.includes('The user rejected the request')) {
         code = ErrorCode.WALLET__CONNECT_ERROR__USER_REJECTED;
       }
       break;

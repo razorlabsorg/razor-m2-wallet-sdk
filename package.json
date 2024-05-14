@@ -1,6 +1,6 @@
 {
-  "name": "@razorlabs/wallet-sdk",
-  "version": "0.1.14",
+  "name": "@razorlabs/m2-wallet-sdk",
+  "version": "0.1.0",
   "description": "",
   "main": "dist/index.umd.cjs",
   "module": "dist/index.js",
