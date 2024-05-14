@@ -1,3 +1,6 @@
+// Copyright (c) Mysten Labs, Inc.
+// SPDX-License-Identifier: Apache-2.0
+
 export const SUI_ADDRESS_LENGTH = 32;
 export function isValidSuiAddress(value: string): value is string {
   return isHex(value) && getHexByteLength(value) === SUI_ADDRESS_LENGTH;
@@ -23,10 +26,10 @@ export function normalizeSuiAddress(
   forceAdd0x: boolean = false
 ): string {
   let address = value.toLowerCase();
-  if (!forceAdd0x && address.startsWith('0x')) {
+  if (!forceAdd0x && address.startsWith("0x")) {
     address = address.slice(2);
   }
-  return `0x${address.padStart(SUI_ADDRESS_LENGTH * 2, '0')}`;
+  return `0x${address.padStart(SUI_ADDRESS_LENGTH * 2, "0")}`;
 }
 
 export function normalizeSuiObjectId(

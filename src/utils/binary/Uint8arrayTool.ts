@@ -1,13 +1,13 @@
-import { Buffer } from 'buffer';
+import { Buffer } from "buffer";
 
 export class Uint8arrayTool {
   static toHex(bytes: Uint8Array): string {
-    return Buffer.from(bytes).toString('hex');
+    return Buffer.from(bytes).toString("hex");
   }
 
   static ensureUint8Array(value: string | Uint8Array | number[]): Uint8Array {
-    if (typeof value === 'string') {
-      return Uint8Array.from(Buffer.from(value, 'base64'));
+    if (typeof value === "string") {
+      return Uint8Array.from(Buffer.from(value, "base64"));
     } else if (value instanceof Uint8Array) {
       return value;
     } else {

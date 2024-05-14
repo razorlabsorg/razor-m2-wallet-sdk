@@ -19,23 +19,6 @@ export function formatSUI(
   );
 }
 
-export function formatAPT(
-  amount: number | string | bigint,
-  options?: {
-    withAbbr?: boolean;
-  }
-) {
-  return formatCurrency(
-    amount,
-    Object.assign(
-      {
-        decimals: 8,
-      },
-      options
-    )
-  );
-}
-
 // formatWithAbbr currency
 // less than 1M -> show original
 // [1M, 1B)  -> x.xxxM

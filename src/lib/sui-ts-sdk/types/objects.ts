@@ -1,5 +1,8 @@
+// Copyright (c) Mysten Labs, Inc.
+// SPDX-License-Identifier: Apache-2.0
+
+import type { Infer } from "../../../utils/superstruct";
 import {
-  Infer,
   any,
   array,
   assign,
@@ -16,10 +19,11 @@ import {
   tuple,
   union,
   unknown,
-} from '../../../utils';
-import { ObjectOwner } from './common';
+} from "../../../utils/superstruct";
 
-export const ObjectType = union([string(), literal('package')]);
+import { ObjectOwner } from "./common";
+
+export const ObjectType = union([string(), literal("package")]);
 export type ObjectType = Infer<typeof ObjectType>;
 
 export const SuiObjectRef = object({
@@ -83,8 +87,8 @@ export const SuiMovePackage = object({
 export type SuiMovePackage = Infer<typeof SuiMovePackage>;
 
 export const SuiParsedData = union([
-  assign(SuiMoveObject, object({ dataType: literal('moveObject') })),
-  assign(SuiMovePackage, object({ dataType: literal('package') })),
+  assign(SuiMoveObject, object({ dataType: literal("moveObject") })),
+  assign(SuiMovePackage, object({ dataType: literal("package") })),
 ]);
 export type SuiParsedData = Infer<typeof SuiParsedData>;
 
@@ -106,8 +110,8 @@ export type SuiRawMovePackage = Infer<typeof SuiRawMovePackage>;
 
 // TODO(chris): consolidate SuiRawParsedData and SuiRawObject using generics
 export const SuiRawData = union([
-  assign(SuiRawMoveObject, object({ dataType: literal('moveObject') })),
-  assign(SuiRawMovePackage, object({ dataType: literal('package') })),
+  assign(SuiRawMoveObject, object({ dataType: literal("moveObject") })),
+  assign(SuiRawMovePackage, object({ dataType: literal("package") })),
 ]);
 export type SuiRawData = Infer<typeof SuiRawData>;
 
@@ -201,9 +205,9 @@ export const SuiObjectDataOptions = object({
 export type SuiObjectDataOptions = Infer<typeof SuiObjectDataOptions>;
 
 export const ObjectStatus = union([
-  literal('Exists'),
-  literal('notExists'),
-  literal('Deleted'),
+  literal("Exists"),
+  literal("notExists"),
+  literal("Deleted"),
 ]);
 export type ObjectStatus = Infer<typeof ObjectStatus>;
 
@@ -216,7 +220,7 @@ export const SuiObjectResponse = object({
 });
 export type SuiObjectResponse = Infer<typeof SuiObjectResponse>;
 
-export type Order = 'ascending' | 'descending';
+export type Order = "ascending" | "descending";
 
 /* -------------------------------------------------------------------------- */
 /*                              Helper functions                              */
@@ -235,9 +239,9 @@ export function getObjectDeletedResponse(
 ): SuiObjectRef | undefined {
   if (
     resp.error &&
-    'object_id' in resp.error &&
-    'version' in resp.error &&
-    'digest' in resp.error
+    "object_id" in resp.error &&
+    "version" in resp.error &&
+    "digest" in resp.error
   ) {
     const error = resp.error as SuiObjectResponseError;
     return {
@@ -255,9 +259,9 @@ export function getObjectNotExistsResponse(
 ): string | undefined {
   if (
     resp.error &&
-    'object_id' in resp.error &&
-    !('version' in resp.error) &&
-    !('digest' in resp.error)
+    "object_id" in resp.error &&
+    !("version" in resp.error) &&
+    !("digest" in resp.error)
   ) {
     return (resp.error as SuiObjectResponseError).object_id as string;
   }
@@ -268,7 +272,7 @@ export function getObjectNotExistsResponse(
 export function getObjectReference(
   resp: SuiObjectResponse | OwnedObjectRef
 ): SuiObjectRef | undefined {
-  if ('reference' in resp) {
+  if ("reference" in resp) {
     return resp.reference;
   }
   const exists = getSuiObjectData(resp);
@@ -287,7 +291,7 @@ export function getObjectReference(
 export function getObjectId(
   data: SuiObjectResponse | SuiObjectRef | OwnedObjectRef
 ): string {
-  if ('objectId' in data) {
+  if ("objectId" in data) {
     return data.objectId;
   }
   return (
@@ -299,7 +303,7 @@ export function getObjectId(
 export function getObjectVersion(
   data: SuiObjectResponse | SuiObjectRef | SuiObjectData
 ): string | number | bigint | undefined {
-  if ('version' in data) {
+  if ("version" in data) {
     return data.version;
   }
   return getObjectReference(data)?.version;
@@ -323,9 +327,9 @@ export function getObjectType(
 ): ObjectType | null | undefined {
   const data = isSuiObjectResponse(resp) ? resp.data : resp;
 
-  if (!data?.type && 'data' in resp) {
-    if (data?.content?.dataType === 'package') {
-      return 'package';
+  if (!data?.type && "data" in resp) {
+    if (data?.content?.dataType === "package") {
+      return "package";
     }
     return getMoveObjectType(resp);
   }
@@ -367,7 +371,7 @@ export function getSharedObjectInitialVersion(
   resp: SuiObjectResponse | ObjectOwner
 ): string | null | undefined {
   const owner = getObjectOwner(resp);
-  if (owner && typeof owner === 'object' && 'Shared' in owner) {
+  if (owner && typeof owner === "object" && "Shared" in owner) {
     return owner.Shared.initial_shared_version;
   } else {
     return undefined;
@@ -376,14 +380,14 @@ export function getSharedObjectInitialVersion(
 
 export function isSharedObject(resp: SuiObjectResponse | ObjectOwner): boolean {
   const owner = getObjectOwner(resp);
-  return !!owner && typeof owner === 'object' && 'Shared' in owner;
+  return !!owner && typeof owner === "object" && "Shared" in owner;
 }
 
 export function isImmutableObject(
   resp: SuiObjectResponse | ObjectOwner
 ): boolean {
   const owner = getObjectOwner(resp);
-  return owner === 'Immutable';
+  return owner === "Immutable";
 }
 
 export function getMoveObjectType(resp: SuiObjectResponse): string | undefined {
@@ -393,7 +397,7 @@ export function getMoveObjectType(resp: SuiObjectResponse): string | undefined {
 export function getObjectFields(
   resp: SuiObjectResponse | SuiMoveObject | SuiObjectData
 ): ObjectContentFields | undefined {
-  if ('fields' in resp) {
+  if ("fields" in resp) {
     return resp.fields;
   }
   return getMoveObject(resp)?.fields;
@@ -413,12 +417,12 @@ export function getMoveObject(
   data: SuiObjectResponse | SuiObjectData
 ): SuiMoveObject | undefined {
   const suiObject =
-    'data' in data ? getSuiObjectData(data) : (data as SuiObjectData);
+    "data" in data ? getSuiObjectData(data) : (data as SuiObjectData);
 
   if (
     !suiObject ||
     !isSuiObjectDataWithContent(suiObject) ||
-    suiObject.content.dataType !== 'moveObject'
+    suiObject.content.dataType !== "moveObject"
   ) {
     return undefined;
   }
@@ -435,11 +439,11 @@ export function hasPublicTransfer(
 export function getMovePackageContent(
   data: SuiObjectResponse | SuiMovePackage
 ): MovePackageContent | undefined {
-  if ('disassembled' in data) {
+  if ("disassembled" in data) {
     return data.disassembled;
   }
   const suiObject = getSuiObjectData(data);
-  if (suiObject?.content?.dataType !== 'package') {
+  if (suiObject?.content?.dataType !== "package") {
     return undefined;
   }
   return (suiObject.content as SuiMovePackage).disassembled;
@@ -480,19 +484,19 @@ export type SuiObjectResponseQuery = {
 export const ObjectRead = union([
   object({
     details: SuiObjectData,
-    status: literal('VersionFound'),
+    status: literal("VersionFound"),
   }),
   object({
     details: string(),
-    status: literal('ObjectNotExists'),
+    status: literal("ObjectNotExists"),
   }),
   object({
     details: SuiObjectRef,
-    status: literal('ObjectDeleted'),
+    status: literal("ObjectDeleted"),
   }),
   object({
     details: tuple([string(), number()]),
-    status: literal('VersionNotFound'),
+    status: literal("VersionNotFound"),
   }),
   object({
     details: object({
@@ -500,7 +504,7 @@ export const ObjectRead = union([
       latest_version: number(),
       object_id: string(),
     }),
-    status: literal('VersionTooHigh'),
+    status: literal("VersionTooHigh"),
   }),
 ]);
 export type ObjectRead = Infer<typeof ObjectRead>;

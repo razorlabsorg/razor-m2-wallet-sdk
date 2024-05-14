@@ -1,9 +1,9 @@
-import { ISuiAccountAssetManager } from './interfaces/ISuiAccountAssetManager';
-import { SuiClient } from '@mysten/sui.js/client';
-import { SuiAccountCoinManager } from './SuiAccountCoinManager';
-import { SUI_TYPE_ARG } from '@mysten/sui.js/utils';
+import { IAccountAssetManager } from "./interfaces/IAccountAssetManager";
+import { SuiClient } from "@mysten/sui.js/client";
+import { AccountCoinManager } from "./AccountCoinManager";
+import { SUI_TYPE_ARG } from "@mysten/sui.js/utils";
 
-export class SuiAccountAssetManager implements ISuiAccountAssetManager {
+export class AccountAssetManager implements IAccountAssetManager {
   private address: string;
   private chainRpcUrl: string;
   private suiClient: SuiClient;
@@ -26,7 +26,7 @@ export class SuiAccountAssetManager implements ISuiAccountAssetManager {
   }
 
   getCoinBalance(coinType: string): Promise<bigint> {
-    const coinManager = new SuiAccountCoinManager(this.suiClient, coinType);
+    const coinManager = new AccountCoinManager(this.suiClient, coinType);
     return coinManager.getBalance(this.address);
   }
 

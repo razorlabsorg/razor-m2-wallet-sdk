@@ -1,39 +1,28 @@
-import {
-  IAptosWalletAdapter,
-  ISuiWalletAdapter,
-} from './interfaces/IWalletAdapter';
+import { IWalletAdapter } from "./interfaces/IWalletAdapter";
 import {
   StandardEventsListeners,
-  M1Chain,
+  SuiChain,
   Wallet,
   WalletAccount,
-} from '@razorlabs/aptos-wallet-standard';
+} from "@mysten/wallet-standard";
 
-import { M2Chain } from '@razorlabs/sui-wallet-standard'
-
-export type WalletRadarSubscriptionInput = (
-  wallets: ISuiWalletAdapter[] | IAptosWalletAdapter[]
-) => void;
+export type WalletRadarSubscriptionInput = (wallets: IWalletAdapter[]) => void;
 export type WalletRadarSubscriptionOutput = () => void;
 
 export type WalletEvent =
   | keyof StandardEventsListeners
-  | 'chainChange'
-  | 'featureChange'
-  | 'accountChange';
+  | "chainChange"
+  | "featureChange"
+  | "accountChange";
 
 export type WalletEventListeners = StandardEventsListeners & {
-  chainChange: (params: M1ChainChangeParams | M2ChainChangeParams) => void;
+  chainChange: (params: ChainChangeParams) => void;
   featureChange: (params: FeatureChangeParams) => void;
   accountChange: (params: AccountChangeParams) => void;
 };
 
-export interface M1ChainChangeParams {
-  chain: M1Chain;
-}
-
-export interface M2ChainChangeParams {
-  chain: M2Chain;
+export interface ChainChangeParams {
+  chain: SuiChain;
 }
 
 export interface AccountChangeParams {
@@ -41,5 +30,5 @@ export interface AccountChangeParams {
 }
 
 export interface FeatureChangeParams {
-  features: Wallet['features'];
+  features: Wallet["features"];
 }

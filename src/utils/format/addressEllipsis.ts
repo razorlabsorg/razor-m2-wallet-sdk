@@ -1,6 +1,6 @@
 export default function addressEllipsis(address: string) {
   if (typeof address !== 'string') {
-    return '';
+    return ''
   }
 
   // 0x0000000000000000000000000000000000000000 40bits / 42 length

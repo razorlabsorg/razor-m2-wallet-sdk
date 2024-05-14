@@ -1,5 +1,5 @@
-import type { StructTag } from '@mysten/sui.js/bcs';
-import { CoinStruct } from '@mysten/sui.js/client';
+import type { StructTag } from "@mysten/sui.js/bcs";
+import { CoinStruct } from "@mysten/sui.js/client";
 import {
   getObjectFields,
   getObjectId,
@@ -7,8 +7,8 @@ import {
   SuiMoveObject,
   SuiObjectInfo,
   SuiObjectResponse,
-} from '../types';
-import { normalizeSuiObjectId } from '../utils';
+} from "../types";
+import { normalizeSuiObjectId } from "../utils";
 
 export type ObjectData = ObjectDataFull | SuiObjectInfo;
 export type ObjectDataFull = SuiObjectResponse | SuiMoveObject;
@@ -41,24 +41,24 @@ export class CoinUtil {
 
   static isSUI(obj: ObjectData) {
     const arg = CoinUtil.getCoinTypeArg(obj);
-    return arg ? CoinUtil.getCoinSymbol(arg) === 'SUI' : false;
+    return arg ? CoinUtil.getCoinSymbol(arg) === "SUI" : false;
   }
 
   static getCoinSymbol(coinTypeArg: string) {
-    return coinTypeArg.substring(coinTypeArg.lastIndexOf(':') + 1);
+    return coinTypeArg.substring(coinTypeArg.lastIndexOf(":") + 1);
   }
 
   static getCoinStructTag(coinTypeArg: string): StructTag {
     return {
-      address: normalizeSuiObjectId(coinTypeArg.split('::')[0]),
-      module: coinTypeArg.split('::')[1],
-      name: coinTypeArg.split('::')[2],
+      address: normalizeSuiObjectId(coinTypeArg.split("::")[0]),
+      module: coinTypeArg.split("::")[1],
+      name: coinTypeArg.split("::")[2],
       typeParams: [],
     };
   }
 
   public static getID(obj: ObjectData): string {
-    if ('fields' in obj) {
+    if ("fields" in obj) {
       return obj.fields.id.id;
     }
     return getObjectId(obj);
@@ -80,9 +80,9 @@ export class CoinUtil {
       CoinUtil.getBalanceFromCoinStruct(b)
         ? -1
         : CoinUtil.getBalanceFromCoinStruct(a) >
-            CoinUtil.getBalanceFromCoinStruct(b)
-          ? 1
-          : 0
+          CoinUtil.getBalanceFromCoinStruct(b)
+        ? 1
+        : 0
     );
   }
 

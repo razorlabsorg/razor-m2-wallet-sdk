@@ -1,5 +1,5 @@
-export interface IAptosAccountAssetManager {
-  getAptosBalance(): Promise<bigint>;
+export interface IAccountAssetManager {
+  getSuiBalance(): Promise<bigint>;
   getCoinBalance(coinType: string): Promise<bigint>;
   getAddress(): string;
   setChainRpcUrl(chainRpcUrl: string): void;
