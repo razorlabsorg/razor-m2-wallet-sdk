@@ -1,5 +1,5 @@
-import {ErrorCode} from "./constants";
-import {PresetWallet} from "../wallet";
+import { ErrorCode } from './constants';
+import { PresetWallet } from '../wallet';
 
 export interface WalletErrorRes {
   code: ErrorCode;
@@ -7,8 +7,11 @@ export interface WalletErrorRes {
   details: Record<string, any>;
 }
 
-export function handleConnectionError(e: Error, wallet: string): WalletErrorRes {
-  let code = ErrorCode.WALLET__CONNECT_ERROR;  // default error
+export function handleConnectionError(
+  e: Error,
+  wallet: string
+): WalletErrorRes {
+  let code = ErrorCode.WALLET__CONNECT_ERROR; // default error
   let message = e.message;
   switch (wallet) {
     case PresetWallet.SUI_WALLET:
@@ -16,21 +19,21 @@ export function handleConnectionError(e: Error, wallet: string): WalletErrorRes 
     case PresetWallet.GLASS_WALLET:
     case PresetWallet.MORPHIS_WALLET:
       if (message.includes('Permission rejected')) {
-        code = ErrorCode.WALLET__CONNECT_ERROR__USER_REJECTED
+        code = ErrorCode.WALLET__CONNECT_ERROR__USER_REJECTED;
       }
       break;
     case PresetWallet.SUIET_WALLET:
       if (message.includes('User rejects approval')) {
-        code = ErrorCode.WALLET__CONNECT_ERROR__USER_REJECTED
+        code = ErrorCode.WALLET__CONNECT_ERROR__USER_REJECTED;
       }
       break;
     case PresetWallet.SPACECY_WALLET:
       // NOTE: Spacecy wallet doesn't return any message
-      code = ErrorCode.WALLET__CONNECT_ERROR__USER_REJECTED
+      code = ErrorCode.WALLET__CONNECT_ERROR__USER_REJECTED;
       break;
     case PresetWallet.SURF_WALLET:
       if (message.includes('The user rejected the request')) {
-        code = ErrorCode.WALLET__CONNECT_ERROR__USER_REJECTED
+        code = ErrorCode.WALLET__CONNECT_ERROR__USER_REJECTED;
       }
       break;
   }
@@ -39,6 +42,6 @@ export function handleConnectionError(e: Error, wallet: string): WalletErrorRes 
     message,
     details: {
       wallet: wallet,
-    }
-  }
+    },
+  };
 }

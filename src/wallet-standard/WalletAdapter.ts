@@ -19,16 +19,16 @@ import {
   SuiSignPersonalMessageMethod,
   SuiSignPersonalMessageInput,
   SuiSignPersonalMessageOutput,
-} from "@mysten/wallet-standard";
-import { IWalletAdapter } from "./interfaces";
+} from '@mysten/wallet-standard';
+import { IWalletAdapter } from './interfaces';
 import {
   ErrorCode,
   handleConnectionError,
   WalletError,
   WalletNotImplementError,
-} from "../error-handling";
-import { FeatureName } from "./constants";
-import { has } from "../utils";
+} from '../error-handling';
+import { FeatureName } from './constants';
+import { has } from '../utils';
 
 /**
  * Wrap the adapter that supports wallet-standard
@@ -65,15 +65,20 @@ export class WalletAdapter implements IWalletAdapter {
     return this.standardWalletAdapter.features as any;
   }
 
-  async connect(input: StandardConnectInput | undefined): Promise<StandardConnectOutput> {
+  async connect(
+    input: StandardConnectInput | undefined
+  ): Promise<StandardConnectOutput> {
     const feature = this.getFeature<{ connect: StandardConnectMethod }>(
       FeatureName.STANDARD__CONNECT
     );
     try {
       return await feature.connect(input);
     } catch (e) {
-      const {code, message, details} = handleConnectionError(e as Error, this.name)
-      throw new WalletError(message, code, details)
+      const { code, message, details } = handleConnectionError(
+        e as Error,
+        this.name
+      );
+      throw new WalletError(message, code, details);
     }
   }
 
@@ -84,18 +89,27 @@ export class WalletAdapter implements IWalletAdapter {
     try {
       return await feature.disconnect();
     } catch (e) {
-      throw new WalletError((e as any).message, ErrorCode.WALLET__DISCONNECT_ERROR)
+      throw new WalletError(
+        (e as any).message,
+        ErrorCode.WALLET__DISCONNECT_ERROR
+      );
     }
   }
 
-  on(event: StandardEventsNames, listener: StandardEventsListeners[StandardEventsNames]): () => void {
+  on(
+    event: StandardEventsNames,
+    listener: StandardEventsListeners[StandardEventsNames]
+  ): () => void {
     const feature = this.getFeature<{ on: StandardEventsOnMethod }>(
       FeatureName.STANDARD__EVENTS
     );
     try {
       return feature.on<StandardEventsNames>(event, listener);
     } catch (e) {
-      throw new WalletError((e as any).message, ErrorCode.WALLET__LISTEN_TO_EVENT_ERROR)
+      throw new WalletError(
+        (e as any).message,
+        ErrorCode.WALLET__LISTEN_TO_EVENT_ERROR
+      );
     }
   }
 
@@ -108,18 +122,26 @@ export class WalletAdapter implements IWalletAdapter {
     try {
       return await feature.signAndExecuteTransactionBlock(input);
     } catch (e) {
-      throw new WalletError((e as any).message, ErrorCode.WALLET__SIGN_TX_ERROR)
+      throw new WalletError(
+        (e as any).message,
+        ErrorCode.WALLET__SIGN_TX_ERROR
+      );
     }
   }
 
-  signTransactionBlock(input: SuiSignTransactionBlockInput): Promise<SuiSignTransactionBlockOutput> {
+  signTransactionBlock(
+    input: SuiSignTransactionBlockInput
+  ): Promise<SuiSignTransactionBlockOutput> {
     const feature = this.getFeature<{
       signTransactionBlock: SuiSignTransactionBlockMethod;
     }>(FeatureName.SUI__SIGN_TRANSACTION_BLOCK);
     try {
       return feature.signTransactionBlock(input);
     } catch (e) {
-      throw new WalletError((e as any).message, ErrorCode.WALLET__SIGN_TX_ERROR)
+      throw new WalletError(
+        (e as any).message,
+        ErrorCode.WALLET__SIGN_TX_ERROR
+      );
     }
   }
 
@@ -130,7 +152,10 @@ export class WalletAdapter implements IWalletAdapter {
     try {
       return await feature.signMessage(input);
     } catch (e) {
-      throw new WalletError((e as any).message, ErrorCode.WALLET__SIGN_MSG_ERROR)
+      throw new WalletError(
+        (e as any).message,
+        ErrorCode.WALLET__SIGN_MSG_ERROR
+      );
     }
   }
 
@@ -151,12 +176,12 @@ export class WalletAdapter implements IWalletAdapter {
   }
 
   hasFeature(name: string): boolean {
-    const {features} = this.standardWalletAdapter;
-    return has(features, name)
+    const { features } = this.standardWalletAdapter;
+    return has(features, name);
   }
 
   private getFeature<T = any>(name: string): T {
-    const {features} = this.standardWalletAdapter;
+    const { features } = this.standardWalletAdapter;
     if (!has(features, name)) {
       throw new WalletNotImplementError(name);
     }

@@ -1,2 +1,2 @@
-export * from "./CoinObject";
-export * from "./constants";
+export * from './CoinObject';
+export * from './constants';

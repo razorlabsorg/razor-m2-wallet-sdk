@@ -1,2 +1,2 @@
-export * from './IWalletAdapter'
-export * from './IWalletRadar'
+export * from './IWalletAdapter';
+export * from './IWalletRadar';

@@ -1,7 +1,7 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import type { Infer } from "../../../utils/superstruct";
+import type { Infer } from '../../../utils/superstruct';
 import {
   boolean,
   define,
@@ -11,9 +11,9 @@ import {
   record,
   string,
   union,
-} from "../../../utils/superstruct";
+} from '../../../utils/superstruct';
 
-import type { CallArg } from "@mysten/sui.js/bcs";
+import type { CallArg } from '@mysten/sui.js/bcs';
 
 export const ObjectOwner = union([
   object({
@@ -27,7 +27,7 @@ export const ObjectOwner = union([
       initial_shared_version: nullable(string()),
     }),
   }),
-  literal("Immutable"),
+  literal('Immutable'),
 ]);
 export type ObjectOwner = Infer<typeof ObjectOwner>;
 
@@ -37,7 +37,7 @@ export type SuiJsonValue =
   | string
   | CallArg
   | Array<SuiJsonValue>;
-export const SuiJsonValue = define<SuiJsonValue>("SuiJsonValue", () => true);
+export const SuiJsonValue = define<SuiJsonValue>('SuiJsonValue', () => true);
 
 const ProtocolConfigValue = union([
   object({ u32: string() }),

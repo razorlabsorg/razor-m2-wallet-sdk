@@ -1,4 +1,4 @@
-import {ErrorCode} from "../constants";
+import { ErrorCode } from '../constants';
 
 export class BaseError extends Error {
   code: ErrorCode;
@@ -7,7 +7,7 @@ export class BaseError extends Error {
   constructor(
     message: string,
     code = ErrorCode.UNKNOWN_ERROR,
-    details?: Record<string, any>,
+    details?: Record<string, any>
   ) {
     super(message);
     this.details = details;
@@ -16,8 +16,8 @@ export class BaseError extends Error {
   }
 
   formatErrorStr(code: string, message: string, details?: Record<string, any>) {
-    let str = `[${this.code}] ${message}`
-    if (details) str += ' | details: ' + JSON.stringify(details)
-    return str
+    let str = `[${this.code}] ${message}`;
+    if (details) str += ' | details: ' + JSON.stringify(details);
+    return str;
   }
 }

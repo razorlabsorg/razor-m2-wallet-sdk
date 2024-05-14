@@ -1,15 +1,15 @@
-import { IWalletAdapter, IWalletRadar } from "./interfaces";
+import { IWalletAdapter, IWalletRadar } from './interfaces';
 import {
   WalletRadarSubscriptionInput,
   WalletRadarSubscriptionOutput,
-} from "./types";
+} from './types';
 import {
   getWallets,
   Wallet,
   Wallets as WalletStandardSdk,
-} from "@mysten/wallet-standard";
-import { isStandardWalletAdapterCompatibleWallet } from "./utils";
-import { WalletAdapter } from "./WalletAdapter";
+} from '@mysten/wallet-standard';
+import { isStandardWalletAdapterCompatibleWallet } from './utils';
+import { WalletAdapter } from './WalletAdapter';
 
 export class WalletRadar implements IWalletRadar {
   private walletStandardSdk: WalletStandardSdk | null;
@@ -30,7 +30,7 @@ export class WalletRadar implements IWalletRadar {
       this.setDetectedWalletAdapters(adapter);
     });
     this.clearOnRegisterListener = this.walletStandardSdk.on(
-      "register",
+      'register',
       (...newAdapters) => {
         newAdapters.forEach((adapter) => {
           this.setDetectedWalletAdapters(adapter);

@@ -1,9 +1,9 @@
-import { IAccountObjectManager } from "./interfaces";
+import { IAccountObjectManager } from './interfaces';
 import {
   SuiClient,
   SuiObjectData,
   SuiObjectResponse,
-} from "@mysten/sui.js/client";
+} from '@mysten/sui.js/client';
 
 export class AccountObjectManager implements IAccountObjectManager {
   protected client: SuiClient;

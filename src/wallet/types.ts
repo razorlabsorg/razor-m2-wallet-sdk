@@ -1,4 +1,4 @@
-import type { IWalletAdapter } from "../wallet-standard";
+import type { IWalletAdapter } from '../wallet-standard';
 
 export interface IWallet {
   name: string;

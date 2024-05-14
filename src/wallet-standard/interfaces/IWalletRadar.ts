@@ -1,8 +1,8 @@
-import { IWalletAdapter } from "./IWalletAdapter";
+import { IWalletAdapter } from './IWalletAdapter';
 import {
   WalletRadarSubscriptionInput,
   WalletRadarSubscriptionOutput,
-} from "../types";
+} from '../types';
 
 export interface IWalletRadar {
   activate: () => void;

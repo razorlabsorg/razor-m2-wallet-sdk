@@ -1,4 +1,4 @@
-import { CoinUtil } from "../lib/sui-ts-sdk";
+import { CoinUtil } from '../lib/sui-ts-sdk';
 
 export type CoinObjectDto = {
   objectId: string;

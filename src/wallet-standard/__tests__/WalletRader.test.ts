@@ -1,14 +1,14 @@
-import { Wallet, getWallets } from "@mysten/wallet-standard";
-import { WalletRadar } from "../WalletRadar";
-import { FeatureName } from "../constants";
+import { Wallet, getWallets } from '@mysten/wallet-standard';
+import { WalletRadar } from '../WalletRadar';
+import { FeatureName } from '../constants';
 
 const initialWallets: Wallet[] = [
   {
-    name: "wallet1",
-    icon: "data:image/png;base64,",
-    version: "1.0.0",
+    name: 'wallet1',
+    icon: 'data:image/png;base64,',
+    version: '1.0.0',
     accounts: [],
-    chains: ["sui:devnet"],
+    chains: ['sui:devnet'],
     features: {
       [FeatureName.STANDARD__CONNECT]: () => {},
       [FeatureName.STANDARD__EVENTS]: () => {},
@@ -22,7 +22,7 @@ beforeEach(() => {
   listeners = [];
 });
 
-jest.mock("@mysten/wallet-standard", () => {
+jest.mock('@mysten/wallet-standard', () => {
   return {
     getWallets: jest.fn().mockReturnValue({
       get: () => initialWallets,
@@ -36,8 +36,8 @@ jest.mock("@mysten/wallet-standard", () => {
   };
 });
 
-describe("test radar detection", () => {
-  test("given mocked sdk, when radar is activated, then return detected wallet adapters", () => {
+describe('test radar detection', () => {
+  test('given mocked sdk, when radar is activated, then return detected wallet adapters', () => {
     const walletRadar = new WalletRadar();
     walletRadar.activate();
     const detectedAdapters = walletRadar.getDetectedWalletAdapters();
@@ -48,17 +48,17 @@ describe("test radar detection", () => {
     });
   });
 
-  test("given mocked sdk, when new wallets register, then it should return the new wallets along with the initial detected wallet adapters", () => {
+  test('given mocked sdk, when new wallets register, then it should return the new wallets along with the initial detected wallet adapters', () => {
     const walletRadar = new WalletRadar();
     walletRadar.activate();
 
     const newWallets: Wallet[] = [
       {
-        name: "wallet2",
-        icon: "data:image/png;base64,",
-        version: "1.0.0",
+        name: 'wallet2',
+        icon: 'data:image/png;base64,',
+        version: '1.0.0',
         accounts: [],
-        chains: ["sui:devnet"],
+        chains: ['sui:devnet'],
         features: {
           [FeatureName.STANDARD__CONNECT]: () => {},
           [FeatureName.STANDARD__EVENTS]: () => {},

@@ -1,1 +1,1 @@
-export * from "./sui-types";
+export * from './sui-types';

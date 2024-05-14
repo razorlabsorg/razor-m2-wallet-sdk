@@ -14,7 +14,7 @@ import {
   WalletWithFeatures,
   SuiSignPersonalMessageFeature,
   SuiSignPersonalMessageMethod,
-} from "@mysten/wallet-standard";
+} from '@mysten/wallet-standard';
 
 export type IWalletAdapter = WalletWithFeatures<
   StandardConnectFeature &

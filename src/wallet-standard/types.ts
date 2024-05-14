@@ -1,19 +1,19 @@
-import { IWalletAdapter } from "./interfaces/IWalletAdapter";
+import { IWalletAdapter } from './interfaces/IWalletAdapter';
 import {
   StandardEventsListeners,
   SuiChain,
   Wallet,
   WalletAccount,
-} from "@mysten/wallet-standard";
+} from '@mysten/wallet-standard';
 
 export type WalletRadarSubscriptionInput = (wallets: IWalletAdapter[]) => void;
 export type WalletRadarSubscriptionOutput = () => void;
 
 export type WalletEvent =
   | keyof StandardEventsListeners
-  | "chainChange"
-  | "featureChange"
-  | "accountChange";
+  | 'chainChange'
+  | 'featureChange'
+  | 'accountChange';
 
 export type WalletEventListeners = StandardEventsListeners & {
   chainChange: (params: ChainChangeParams) => void;
@@ -30,5 +30,5 @@ export interface AccountChangeParams {
 }
 
 export interface FeatureChangeParams {
-  features: Wallet["features"];
+  features: Wallet['features'];
 }

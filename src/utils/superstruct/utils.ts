@@ -240,11 +240,10 @@ export type IsMatch<T, G> = T extends G ? (G extends T ? T : never) : never;
  * Check if a type is an exact match.
  */
 
-export type IsExactMatch<T, U> = (<G>() => G extends T ? 1 : 2) extends <
-  G,
->() => G extends U ? 1 : 2
-  ? T
-  : never;
+export type IsExactMatch<T, U> =
+  (<G>() => G extends T ? 1 : 2) extends <G>() => G extends U ? 1 : 2
+    ? T
+    : never;
 
 /**
  * Check if a type is a record type.
