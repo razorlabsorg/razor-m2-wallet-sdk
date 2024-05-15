@@ -14,14 +14,14 @@ export const SuiDevnetChain: Chain = {
 
 export const SuiTestnetChain: Chain = {
   id: SuiChainId.TEST_NET,
-  name: 'M2 Devnet',
+  name: 'M2 Testnet',
   rpcUrl: 'https://sui.testnet.m2.movementlabs.xyz/',
 };
 
 
 export const SuiMainnetChain: Chain = {
   id: SuiChainId.MAIN_NET,
-  name: 'M2 Devnet',
+  name: 'M2 Mainnet',
   rpcUrl: 'https://sui.mainnet.m2.movementlabs.xyz/',
 };
 
