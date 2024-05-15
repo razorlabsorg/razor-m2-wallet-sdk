@@ -12,10 +12,23 @@ export const SuiDevnetChain: Chain = {
   rpcUrl: 'https://sui.devnet.m2.movementlabs.xyz/',
 };
 
+export const SuiTestnetChain: Chain = {
+  id: SuiChainId.TEST_NET,
+  name: 'M2 Devnet',
+  rpcUrl: 'https://sui.testnet.m2.movementlabs.xyz/',
+};
+
+
+export const SuiMainnetChain: Chain = {
+  id: SuiChainId.MAIN_NET,
+  name: 'M2 Devnet',
+  rpcUrl: 'https://sui.mainnet.m2.movementlabs.xyz/',
+};
+
 export const UnknownChain: Chain = {
   id: 'unknown:unknown',
   name: 'Unknown Network',
   rpcUrl: '',
 };
 
-export const DefaultChains = [SuiDevnetChain];
+export const DefaultChains = [SuiDevnetChain, SuiTestnetChain, SuiMainnetChain];

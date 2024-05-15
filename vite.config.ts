@@ -7,7 +7,7 @@ export default defineConfig(({ mode }) => ({
     target: 'es2020',
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: 'razorWalletSdk',
+      name: 'razorM2WalletSdk',
       fileName: 'index',
     },
     sourcemap: false,
