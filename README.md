@@ -9,3 +9,5 @@
 </a>
 
 This repo aims at providing easy-to-use utilities for wallet interaction, which is designed in javascript OOP and platform / framework agnostic.
+
+This repo has been archived. You can find the updated code here <a href="https://github.com/razorlabsorg/razor-wallet-kit">here</a>
